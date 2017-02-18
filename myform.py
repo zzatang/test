@@ -142,6 +142,7 @@ def main():
     root = Tk()
     feedback = Feedback(root)
     root.mainloop()
+    print('Done')
     
 
 if __name__ == '__main__': main()
