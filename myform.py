@@ -124,7 +124,9 @@ class Feedback:
         self.db.sql_do('DELETE FROM {}'.format(self.__t))
         self.db.sql_do('VACUUM')
         self.listbox_result.delete(0, 'end')
+        self.text_show_comments.config(state = 'normal')
         self.text_show_comments.delete(1.0, 'end')
+        self.text_show_comments.config(state = 'disabled')
 
     def delete_selected(self):
         self.db.delete(self.__row_id)
