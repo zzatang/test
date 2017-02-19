@@ -48,32 +48,32 @@ class Feedback:
 
         self.frame_right = ttk.Frame(master)
         self.frame_right.pack(side = LEFT)
-        ttk.Label(self.frame_right, text = 'Databse Content').grid(row = 0, column = 0, columnspan = 3, sticky = 'w')
         self.frame_result = ttk.Frame(self.frame_right)
-        self.frame_result.grid(row = 1, column = 1, columnspan = 3 )
+        self.frame_result.grid(row = 1, column = 0, columnspan = 3 )
        
+        ttk.Label(self.frame_result, text = 'Database Content').grid(row = 0, column = 0, padx = 5, sticky = 'sw')
         self.frame_listbox = ttk.Frame(self.frame_result)
-        self.frame_listbox.pack()
+        self.frame_listbox.grid(row = 1, column =0)
         scrollbar = Scrollbar(self.frame_listbox, orient = 'vertical')
         self.listbox_result = Listbox(self.frame_listbox, width = 50, height = 10, yscrollcommand=scrollbar.set)
         scrollbar.config(command = self.listbox_result.yview)
         scrollbar.pack(side = 'right', fill='y')
         self.listbox_result.pack()
 
-        ttk.Label(self.frame_result, text = 'Comments').pack()
+        ttk.Label(self.frame_result, text = 'Comments').grid(row = 2, column = 0,padx = 5, sticky = 'sw')
 
         self.frame_comments = ttk.Frame(self.frame_result)
-        self.frame_comments.pack()
+        self.frame_comments.grid(row = 3, column = 0)
         scrollbar2 = Scrollbar(self.frame_comments, orient = 'vertical')
         self.text_show_comments = Text(self.frame_comments, width = 38, height = 10, state = 'disabled', wrap = WORD, yscrollcommand = scrollbar2.set)
         scrollbar2.config(command = self.text_show_comments.yview)
         scrollbar2.pack(side = 'right', fill='y')
         self.text_show_comments.pack()
 
-        ttk.Button(self.frame_right, text = 'Refresh', command = self.refresh_list).grid(row = 2, column = 0)
-        ttk.Button(self.frame_right, text = 'Delete All', command = self.delete_all_list).grid(row = 2, column = 1)
+        ttk.Button(self.frame_right, text = 'Refresh', command = self.refresh_list).grid(row = 2, column = 0, padx = 5, pady = 5)
+        ttk.Button(self.frame_right, text = 'Delete All', command = self.delete_all_list).grid(row = 2, column = 1, padx = 5, pady = 5)
         self.button_delete_selected = ttk.Button(self.frame_right, text = 'Delete Selected', command = self.delete_selected, state = DISABLED)
-        self.button_delete_selected.grid(row = 2, column = 2)
+        self.button_delete_selected.grid(row = 2, column = 2, padx = 5, pady = 5)
 
 
         self.__fn = ':memory:'
