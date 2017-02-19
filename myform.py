@@ -97,7 +97,9 @@ class Feedback:
 
     def refresh_list(self):
         self.listbox_result.delete(0, 'end')
+        self.text_show_comments.config(state = 'normal')
         self.text_show_comments.delete(1.0, 'end')
+        self.text_show_comments.config(state = 'disabled')
         for r in self.db.getrecs():
             record = '--'.join([str(r['id']),r['name'], r['email']])
             self.listbox_result.insert('end', record)
@@ -144,7 +146,7 @@ def main():
     root = Tk()
     feedback = Feedback(root)
     root.mainloop()
-    print('Done')
+    #print('Done')
     
 
 if __name__ == '__main__': main()
