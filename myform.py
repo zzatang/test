@@ -21,7 +21,7 @@ class Feedback:
         self.frame_header = ttk.Frame(self.frame_left)
         self.frame_header.pack()
 
-        self.logo = PhotoImage(file = 'X:\\Lynda Training Courses\\Python\\4_Python_GUI_Development_With_Tkinter\\myform\\tour_logo.gif')
+        self.logo = PhotoImage(file = 'tour_logo.gif')
         ttk.Label(self.frame_header, image = self.logo).grid(row = 0, column = 0, rowspan = 2)
         ttk.Label(self.frame_header, text = 'Thanks for Exploring', style = 'Header.TLabel').grid(row = 0, column = 1)
         ttk.Label(self.frame_header, wraplength = 300,
