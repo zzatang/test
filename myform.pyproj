@@ -24,6 +24,9 @@
     <Content Include="tour_logo.gif" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="atDB.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="bwDB.py" />
     <Compile Include="myform.py" />
   </ItemGroup>
