@@ -4,6 +4,10 @@ from tkinter import messagebox
 from bwDB import bwDB
 
 class Feedback:
+
+    intRecord = 0
+    strRecord = 'Number of record: '
+
     def __init__(self, master):
         master.title('Explore NSW Feedback')
         master.resizable(False, False)
@@ -51,7 +55,8 @@ class Feedback:
         self.frame_result = ttk.Frame(self.frame_right)
         self.frame_result.grid(row = 1, column = 0, columnspan = 3 )
        
-        ttk.Label(self.frame_result, text = 'Database Content').grid(row = 0, column = 0, padx = 5, sticky = 'sw')
+        self.label_record = ttk.Label(self.frame_result, text = ''.join([self.strRecord, str(self.intRecord)]))
+        self.label_record.grid(row = 0, column = 0, padx = 5, sticky = 'sw')
         self.frame_listbox = ttk.Frame(self.frame_result)
         self.frame_listbox.grid(row = 1, column =0)
         scrollbar = Scrollbar(self.frame_listbox, orient = 'vertical')
@@ -84,6 +89,8 @@ class Feedback:
         self.db.sql_do('DROP TABLE IF EXISTS {}'.format(self.__t))
         self.db.sql_do('CREATE TABLE {} (id INTEGER PRIMARY KEY, name TEXT, email TEXT, comments TEXT)'.format(self.__t))
 
+        
+
 
     def submit(self):
         record = dict( name = self.entry_name.get(), email = self.entry_email.get(), comments = self.text_comments.get(1.0, 'end'))
@@ -104,6 +111,8 @@ class Feedback:
             record = '--'.join([str(r['id']),r['name'], r['email']])
             self.listbox_result.insert('end', record)
         self.listbox_result.bind('<<ListboxSelect>>', self.on_select)
+        self.intRecord = self.db.countrecs()
+        self.label_record['text'] = ''.join([self.strRecord, str(self.intRecord)])
 
         
     def on_select(self, evt):
