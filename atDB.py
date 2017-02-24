@@ -12,12 +12,75 @@ class atDB:
 
     def sql_do(self, sql, params = ()):
         '''
-            sql_do(sql[, params])
+            db.sql_do(sql[, params])
             perform non-select query
         '''
         self._db.execute(sql, params)
         self._db.commit()
 
+    def sql_query(self, sql, params = ()):
+        '''
+            db.sql_query(sql[, params])
+            run the sql with the parameters. 
+            returns a generator 
+        '''
+        c = self._db.cursor()
+        c.execute(sql, params)
+        for r in c:
+            yield r
+
+    def sql_query_row(self, sql, params = ()):
+        '''
+            db.sql_query_row(sql[, params])
+            run the sql with the parameters.
+            return one row
+        '''
+        c = self._db.cursor()
+        c.execute(sql, params)
+        return c.fetchone()
+
+    def sql_query_value(self, sql, params = ()):
+        '''
+            db.sql_query_value(sql[, params])
+            run the sql with the parameters
+            return a single value
+        '''
+        c = self._db.cursor()
+        c.execute(sql, params)
+        return c.fetchone()[0]
+
+    def getrec(self, id):
+        '''
+            db.getrec(id)
+            return single row by id
+        '''
+        query = 'SELECT * FROM {} WHERE id = ?'.format(self._dbTable)
+        c = self._db.execute(query, (id,))
+        return c.fetchone()
+
+    def getrecs(self):
+        '''
+            db.getrecs()
+            return all rows, return a generator
+        '''
+        query = 'SELECT * FROM {}'.format(self._dbTable)
+        c = self._db.execute(query)
+        for r in c:
+            yield r
+
+    def countrecs(self):
+        '''
+            db.countrecs()
+            return number of records
+        '''
+        query = 'SELECT COUNT(*) FROM {}'.format(self._dbTable)
+        c = self._db.execute(query)
+        return c.fetchone()[0]
+
+    def delete(self, id):
+        '''
+            db.de
+        '''
 
     @property
     def filename(self):
@@ -36,3 +99,15 @@ class atDB:
     def close(self):
         self._db.close()
         del self._dbFilename
+
+    @property
+    def table(self):
+        return self._dbTable
+
+    @table.setter
+    def table(self, t):
+        self._dbTable = t
+
+    @table.deleter
+    def table(self):
+        del self._dbTable
