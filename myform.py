@@ -113,6 +113,7 @@ class Feedback:
         self.listbox_result.bind('<<ListboxSelect>>', self.on_select)
         self.intRecord = self.db.countrecs()
         self.label_record['text'] = ''.join([self.strRecord, str(self.intRecord)])
+        self.button_delete_selected.config(state = 'disabled')
 
         
     def on_select(self, evt):
@@ -135,10 +136,7 @@ class Feedback:
         if messagebox.askokcancel("Verify", "Ok to delete all records?"):
             self.db.sql_do('DELETE FROM {}'.format(self.__t))
             self.db.sql_do('VACUUM')
-            self.listbox_result.delete(0, 'end')
-            self.text_show_comments.config(state = 'normal')
-            self.text_show_comments.delete(1.0, 'end')
-            self.text_show_comments.config(state = 'disabled')
+            self.refresh_list()
 
 
     def delete_selected(self):
