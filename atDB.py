@@ -1,4 +1,4 @@
-import sqlite3
+﻿import sqlite3
 
 __version__ = '0.0.1'
 
@@ -79,8 +79,18 @@ class atDB:
 
     def delete(self, id):
         '''
-            db.de
+            db.delete(id)
+            delete a row by id
         '''
+        query = 'DELETE FROM {} WHERE id = ?'.format(self._dbTable)
+        self._db.execute(query, (id,))
+        self._db.commit()
+
+    def insert(self, rec):
+        pass
+
+    def update(self, id, rec):
+        pass
 
     @property
     def filename(self):
