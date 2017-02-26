@@ -94,13 +94,16 @@ class Feedback:
 
     def submit(self):
         record = dict( name = self.entry_name.get(), email = self.entry_email.get(), comments = self.text_comments.get(1.0, 'end'))
-        self.db.insert(record)
-        #print('Name: {}'.format(self.entry_name.get()))
-        #print('Email: {}'.format(self.entry_email.get()))
-        #print('Comments: {}'.format(self.text_comments.get(1.0, 'end')))
-        #self.refresh_list()
-        self.clear()
-        messagebox.showinfo(title = 'Explore NSW Feedback', message = 'Comments Submitted')
+        if record['name'] and record['email'] and record['comments'] != '\n':
+            self.db.insert(record)
+            #print('Name: {}'.format(self.entry_name.get()))
+            #print('Email: {}'.format(self.entry_email.get()))
+            #print('Comments: {}'.format(self.text_comments.get(1.0, 'end')))
+            #self.refresh_list()
+            self.clear()
+            messagebox.showinfo(title = 'Explore NSW Feedback', message = 'Comments Submitted')
+        else:
+            messagebox.showerror(title = 'Explore NSW Feedback', message = 'All fields need to be filled in')
 
     def refresh_list(self):
         self.listbox_result.delete(0, 'end')
