@@ -87,7 +87,19 @@ class atDB:
         self._db.commit()
 
     def insert(self, rec):
-        pass
+        '''
+            db.insert(rec)
+            insert a single record into table
+            rec is a dict
+        ''' 
+        klist = sorted(rec.keys())
+        values = [rec[k] for k in klist]
+        query = 'INSERT INTO {} ({}) VALUES = ({})'.format(self._dbTable, ', '.join(klist), ', '.join('?' for k in klist))
+        c = self._db.execute(query, values)
+        self._db.commit()
+        return c.lastrowid
+        
+        
 
     def update(self, id, rec):
         pass
