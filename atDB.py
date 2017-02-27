@@ -99,10 +99,13 @@ class atDB:
         self._db.commit()
         return c.lastrowid
         
-        
-
     def update(self, id, rec):
-        pass
+        '''
+            db.update(id, rec)
+            update a record by id
+            rec is a dict
+        '''
+        
 
     @property
     def filename(self):
