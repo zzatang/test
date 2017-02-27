@@ -105,7 +105,15 @@ class atDB:
             update a record by id
             rec is a dict
         '''
-        
+        if 'id' in rec:
+            del rec['id']
+        klist = sorted(rec.keys())
+        values = [rec[k] for k in klist]
+        query = 'UPDATE {} SET {} WHERE id = ?'.format(self._dbTable, 
+                                                       ', '.join(map(lambda str: '{} = ?'.format(str), klist)))
+        self._db.execute(query, values + [id])
+        self._db.commit()
+
 
     @property
     def filename(self):
