@@ -94,7 +94,7 @@ class atDB:
         ''' 
         klist = sorted(rec.keys())
         values = [rec[k] for k in klist]
-        query = 'INSERT INTO {} ({}) VALUES = ({})'.format(self._dbTable, ', '.join(klist), ', '.join('?' for k in klist))
+        query = 'INSERT INTO {} ({}) VALUES ({})'.format(self._dbTable, ', '.join(klist), ', '.join('?' for k in klist))
         c = self._db.execute(query, values)
         self._db.commit()
         return c.lastrowid
@@ -144,3 +144,54 @@ class atDB:
     @table.deleter
     def table(self):
         del self._dbTable
+
+def test():
+    import os
+    fn = ':memory:'     # in-memory database
+    t = 'foo'
+
+    recs = [
+        dict( string = 'one' ),
+        dict( string = 'two' ),
+        dict( string = 'three' )
+    ]
+
+    ### for file-based database
+    # try: os.stat(fn)
+    # except: pass
+    # else: 
+    #     print('Delete', fn)
+    #     os.unlink(fn)
+
+    print('version', __version__)
+
+    print('Create database file {} ...'.format(fn), end = '')
+    db = atDB( filename = fn, table = t )
+    print('Done.')
+
+    print('Create table ... ', end='')
+    db.sql_do(' DROP TABLE IF EXISTS {} '.format(t))
+    db.sql_do(' CREATE TABLE {} ( id INTEGER PRIMARY KEY, string TEXT ) '.format(t))
+    print('Done.')
+
+    print('Insert into table ... ', end = '')
+    for r in recs: db.insert(r)
+    print('Done.')
+
+    print('Read from table')
+    for r in db.getrecs(): print(dict(r))
+
+    print('Update table')
+    db.update(2, dict(string = 'TWO'))
+    print( dict( db.getrec(2) ) )
+
+    print('Insert an extra row ... ', end = '')
+    newid = db.insert( dict( string = 'extra' ) )
+    print('(id is {})'.format(newid))
+    print( dict( db.getrec(newid) ) )
+    print('Now delete it')    
+    db.delete(newid)
+    for r in db.getrecs(): print(dict(r))
+    db.close()
+
+if __name__ == "__main__": test()
