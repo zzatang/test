@@ -2,6 +2,7 @@
 from tkinter import ttk
 from tkinter import messagebox
 from bwDB import bwDB
+from atDB import atDB
 
 class Feedback:
 
@@ -85,7 +86,7 @@ class Feedback:
         self.__t = 'test'
         
 
-        self.db = bwDB(filename = self.__fn, table = self.__t)
+        self.db = atDB(filename = self.__fn, table = self.__t)
         self.db.sql_do('DROP TABLE IF EXISTS {}'.format(self.__t))
         self.db.sql_do('CREATE TABLE {} (id INTEGER PRIMARY KEY, name TEXT, email TEXT, comments TEXT)'.format(self.__t))
 
