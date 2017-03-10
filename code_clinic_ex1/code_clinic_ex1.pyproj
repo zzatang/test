@@ -20,6 +20,14 @@
     <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="lpoApp.py" />
+    <Compile Include="lpoDB.py" />
+    <Compile Include="lpoWeb.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="lpo_logo.gif" />
+  </ItemGroup>
   <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
 </Project>
