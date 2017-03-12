@@ -17,8 +17,9 @@ class atApp:
     def _createGUI(self):
         bgcolor = '#CCCCFF'
         self.master.configure(background = bgcolor)
+        self.master.title("AT Testing")
+        self.master.resizable(False, False)
         
-
 
 
 
