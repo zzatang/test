@@ -40,8 +40,22 @@ class atApp:
         self.frame_input.pack(side = TOP)
         
         ttk.Label(self.frame_input, text = "Start Date:").grid(row = 0, column = 1, columnspan = 3, sticky = "sw")
+        ttk.Label(self.frame_input, text = "End Date:").grid(row = 0, column = 5, columnspan = 3, sticky = "sw")
 
-        
+        self.start_day = StringVar()
+        self.start_month = StringVar()
+        self.start_year = StringVar()
+        self.end_day = StringVar()
+        self.end_month = StringVar()
+        self.end_year = StringVar()
+
+        self.months = ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
+
+        # create spinbox for each item
+        Spinbox(self.frame_input, from_ = 1, to = 31, textvariable=self.start_day, width = 2, font = "Courier 12").grid(row = 1, column = 1)
+        Spinbox(self.frame_input, values = self.months, textvariable=self.start_month, width = 3, font = "Courier 12").grid(row = 1, column = 2)
+        Spinbox(self.frame_input, from_ = 2001, to = date.today().year, textvariable = self.start_year, width = 4, font = "Courier 12").grid(row = 1, column = 3)
+   
         
         
 
