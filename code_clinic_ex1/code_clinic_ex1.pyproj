@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{28117309-64ed-47d2-9c1d-2da59f78e55b}</ProjectGuid>
     <ProjectHome />
-    <StartupFile />
+    <StartupFile>lpoApp.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
