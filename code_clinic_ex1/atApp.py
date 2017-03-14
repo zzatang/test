@@ -1,4 +1,4 @@
-from tkinter import *
+﻿from tkinter import *
 from tkinter import ttk, messagebox
 from statistics import mean, median
 from datetime import date
@@ -115,8 +115,16 @@ class atApp:
             self.end_year.set(date.today().year)
             return
          
-        # check the date range
-        if (start < date(2001, 1, 1) or end >       
+        # check the date rge
+        if (start < date(2001, 1, 1) or end > date.today() or start > end):
+            messagebox.showerror(title = "Error", 
+                                    message = ("INVALID DATE RANGE\nStart Date: {}\nEnd Date: {}\n"
+                                               "Date must be between 2001-01-01 and {}.\n"
+                                               "Start Date must be earlier than End Date.").format(start, end, date.today()))
+            return
+
+        data = list(self.database.get_data_for_range(start, end))
+
 
 
 def main():
