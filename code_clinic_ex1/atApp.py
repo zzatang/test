@@ -103,7 +103,20 @@ class atApp:
         # check if date is valid
         try:
             start = date(int(self.start_year.get()), self.months.index(self.start_month.get()) + 1, int(self.start_day.get()))
-
+            end = date(int(self.end_year.get()), self.months.index(self.end_month.get()) + 1, int(self.end_day.get()))
+        except ValueError as e:
+            messagebox.showerror(title = "Error", message = "INVALID DATE\nCorrect Format is DD Mon YYYY")
+            #reset the dates
+            self.start_day.set(date.today().day)
+            self.start_month.set(self.months[date.today().month - 1])
+            self.start_year.set(date.today().year)
+            self.end_day.set(date.today().day)
+            self.end_month.set(self.months[date.today().month - 1])
+            self.end_year.set(date.today().year)
+            return
+         
+        # check the date range
+        if (start < date(2001, 1, 1) or end >       
 
 
 def main():
