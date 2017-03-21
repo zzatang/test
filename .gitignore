@@ -1,3 +1,4 @@
 *.suo
 UpgradeLog.htm
 *.pyc
+*.db
