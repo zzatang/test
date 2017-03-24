@@ -24,11 +24,19 @@ class atDB():
         Delete the data between start and end dates
         Insert the data from the downloaded
         '''
-        years_to_download = []
-        for i in range(start.year, end.year + 1): years_to_download.append
 
+        #Delete existing data
+        self._db.execute('DELETE FROM {} WHERE DATE BETWEEN {} AND {}'.format(self._dbtable, start.strftime('%Y%m%d'), end.strftime('%Y%m%d')))
+        self._db.commit()
+
+        years_to_download = []
+        for i in range(start.year, end.year + 1): years_to_download.append(i)
+
+        data_for_all_years = []
         for year in years_to_download:
-            pass
+            data_for_all_years.append(atWeb.get_data_for_date(year))
+
+        
 
 
 
