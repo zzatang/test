@@ -5,22 +5,22 @@ __version__ = '0.0.1'
 
 Based_URL = 'https://raw.githubusercontent.com/lyndadotcom/LPO_weatherdata/master/Environmental_Data_Deep_Moor_'
 
-def get_data_for_date(date):
+def get_data_for_date(year):
     '''
     Returns an generator object of data of the specific date
     '''
 
     # use correct accessor methods based on date
-    return _get_data_from_github(date)
+    return _get_data_from_github(year)
     
 
-def _get_data_from_github(date):
+def _get_data_from_github(year):
     '''
     Access Github to download whole year data
     '''
     # build the url based on year
-    url = '{}{}.txt'.format(Based_URL, date.year)
-    print('Fetching online data for {} full year'.format(date.year))
+    url = '{}{}.txt'.format(Based_URL, year)
+    print('Fetching online data for {} full year'.format(year))
 
     try:
         year_data = request.urlopen(url).read().decode(encoding='utf_8').split('\n')

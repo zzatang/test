@@ -17,8 +17,18 @@ class atDB():
                 (Date Text, Time Text, Status Text, Air_Temp Float, Baromatric_Press Float, Wind_Speed Float)'''.format(self._dbtable)
         self._db.execute(sql)
 
+    
+    def get_data_for_range(self, start, end):
+        '''
+        Given the start and end dates, download the data for the year range
+        Delete the data between start and end dates
+        Insert the data from the downloaded
+        '''
+        years_to_download = []
+        for i in range(start.year, end.year + 1): years_to_download.append
 
-
+        for year in years_to_download:
+            pass
 
 
 
