@@ -33,11 +33,24 @@ class atDB():
         for i in range(start.year, end.year + 1): years_to_download.append(i)
 
         data_for_all_years = []
-        for year in years_to_download:
-            data_for_all_years.append(atWeb.get_data_for_date(year))
-
+        for year in years_to_download: data_for_all_years.append(atWeb.get_data_for_date(year))
         
+        for entry in data_for_all_years:
+            if datetime.strptime(entry['Date'], '%Y_%m_%d').date() >= start and datetime.strptime(entry['Date'], '%Y_%m_%d').date() <= end:
+                self._db.execute('''INSERT INTO {} (Date, Time, Status, Air_Temp, Barometric_Press, Wind_Speed) 
+                                    VALUES (?, ?, ?, ?, ?, ?)'''.format(self._dbtable), (entry['Date'].replace('_', ''),
+                                                                                         entry['Time'],
+                                                                                         'Complete',
+                                                                                         entry['Air_Temp'],
+                                                                                         entry['Barometric_Press'],
+                                                                                         entry['Wind_Speed']))
+                self._db.commit()
 
+    def clear(self):
+        '''
+        Clear out the database by dropping the table
+        '''
+        self._db.execute('DROP TABLE IF EXISTS {}'.format(self._dbtable))
 
 
     ### setting filename property
