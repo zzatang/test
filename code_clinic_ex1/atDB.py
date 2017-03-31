@@ -46,6 +46,12 @@ class atDB():
                                                                                          entry['Wind_Speed']))
                 self._db.commit()
 
+        cursor = self._db.execute('SELECT Air_Temp, Barometric_Press, Wind_Speed FROM {} WHERE Date BETWEEN {} AND {}'.format(self._dbtable, 
+                                                                                                                              start.strftime('%Y%m%s'),
+                                                                                                                              end.strftime('%Y%m%s')))
+        for row in cursor:
+            yield dict(row)
+
     def clear(self):
         '''
         Clear out the database by dropping the table

@@ -3,6 +3,7 @@ from tkinter import ttk, messagebox
 from statistics import mean, median
 from datetime import date
 import lpoDB
+import atDB
 
 __version__ = '0.0.1'
 
@@ -12,8 +13,7 @@ class atApp:
     def __init__ (self, master):
         self.master = master
         self._createGUI()
-        self.database = lpoDB.lpoDB()
-
+        self.database = atDB.atDB()
     
     def _createGUI(self):
 
@@ -124,6 +124,19 @@ class atApp:
             return
 
         data = list(self.database.get_data_for_range(start, end))
+        
+        if data != []:
+            pass
+
+        else:
+            self.frame_result.focus()
+
+    def _safe_close(self):
+        '''
+        User close the GUI
+        '''
+        self.database.close()
+        self.master.destroy()
 
 
 
