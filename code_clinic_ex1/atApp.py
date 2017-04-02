@@ -13,7 +13,9 @@ class atApp:
     def __init__ (self, master):
         self.master = master
         self._createGUI()
-        self.database = atDB.atDB()
+        self.__fn = ':memory:'
+        self.__t = 'test'
+        self.database = atDB.atDB(filename = self.__fn, tablename = self.__t)
         self.master.protocol('WM_DELETE_WINDOW', self._safe_close)
     
     def _createGUI(self):
