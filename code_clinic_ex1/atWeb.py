@@ -13,7 +13,6 @@ def get_data_for_date(year):
     # use correct accessor methods based on date
     return _get_data_from_github(year)
     
-
 def _get_data_from_github(year):
     '''
     Access Github to download whole year data

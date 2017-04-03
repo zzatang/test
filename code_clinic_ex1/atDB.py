@@ -33,7 +33,7 @@ class atDB():
         for i in range(start.year, end.year + 1): years_to_download.append(i)
 
         data_for_all_years = []
-        for year in years_to_download: data_for_all_years.append(atWeb.get_data_for_date(year))
+        for year in years_to_download: data_for_all_years.append(list(atWeb.get_data_for_date(year)))
         
         for entry in data_for_all_years:
             if datetime.strptime(entry['Date'], '%Y_%m_%d').date() >= start and datetime.strptime(entry['Date'], '%Y_%m_%d').date() <= end:
