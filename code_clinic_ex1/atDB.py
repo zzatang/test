@@ -14,7 +14,7 @@ class atDB():
         self.filename = kwargs.get('filename', 'lpo.db')
         self.tablename = kwargs.get('tablename', 'Weather')
         sql = '''CREATE TABLE IF NOT EXISTS {} 
-                (Date Text, Time Text, Status Text, Air_Temp Float, Baromatric_Press Float, Wind_Speed Float)'''.format(self._dbTable)
+                (Date Text, Time Text, Status Text, Air_Temp Float, Barometric_Press Float, Wind_Speed Float)'''.format(self._dbTable)
         self._db.execute(sql)
 
     
@@ -35,20 +35,21 @@ class atDB():
         data_for_all_years = []
         for year in years_to_download: data_for_all_years.append(list(atWeb.get_data_for_date(year)))
         
-        for entry in data_for_all_years:
-            if datetime.strptime(entry['Date'], '%Y_%m_%d').date() >= start and datetime.strptime(entry['Date'], '%Y_%m_%d').date() <= end:
-                self._db.execute('''INSERT INTO {} (Date, Time, Status, Air_Temp, Barometric_Press, Wind_Speed) 
+        for entry_list in data_for_all_years:
+            for entry in entry_list:                         
+                if datetime.strptime(entry['Date'], '%Y_%m_%d').date() >= start and datetime.strptime(entry['Date'], '%Y_%m_%d').date() <= end:
+                    self._db.execute('''INSERT INTO {} (Date, Time, Status, Air_Temp, Barometric_Press, Wind_Speed) 
                                     VALUES (?, ?, ?, ?, ?, ?)'''.format(self._dbTable), (entry['Date'].replace('_', ''),
                                                                                          entry['Time'],
                                                                                          'Complete',
                                                                                          entry['Air_Temp'],
                                                                                          entry['Barometric_Press'],
                                                                                          entry['Wind_Speed']))
-                self._db.commit()
+                    self._db.commit()
 
         cursor = self._db.execute('SELECT Air_Temp, Barometric_Press, Wind_Speed FROM {} WHERE Date BETWEEN {} AND {}'.format(self._dbTable, 
-                                                                                                                              start.strftime('%Y%m%s'),
-                                                                                                                              end.strftime('%Y%m%s')))
+                                                                                                                              start.strftime('%Y%m%d'),
+                                                                                                                              end.strftime('%Y%m%d')))
         for row in cursor:
             yield dict(row)
 

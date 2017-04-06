@@ -132,19 +132,19 @@ class atApp:
             dict_of_lists = dict(Air_Temp = [], Barometric_Press = [], Wind_Speed = [])
             
             for entry in data:
-                for key in dict_of_lists.keys:
+                for key in dict_of_lists.keys():
                     dict_of_lists[key].append(entry[key])
 
             result = {}
-            for key in dict_of_lists.keys:
+            for key in dict_of_lists.keys():
                 result[key] = dict(mean = mean(dict_of_lists[key]), median = median(dict_of_lists[key]))
                 
-            self.air_temp_mean.set('{}'.format(result['Air_Temp']['mean']))
-            self.air_temp_median.set('{}'.format(result['Air_Temp']['median']))
-            self.barometric_press_mean.set('{}'.format(result['Barometric_Press']['mean']))
-            self.barometric_press_median.set('{}'.format(result['Barometric_Press']['median']))
-            self.wind_speed_mean.set('{}'.format(result['Wind_Speed']['mean']))
-            self.wind_speed_median.set('{}'.format(result['Wind_Speed']['median']))
+            self.air_temp_mean.set('{0:.2f}'.format(result['Air_Temp']['mean']))
+            self.air_temp_median.set('{0:.2f}'.format(result['Air_Temp']['median']))
+            self.barometric_press_mean.set('{0:.2f}'.format(result['Barometric_Press']['mean']))
+            self.barometric_press_median.set('{0:.2f}'.format(result['Barometric_Press']['median']))
+            self.wind_speed_mean.set('{0:.2f}'.format(result['Wind_Speed']['mean']))
+            self.wind_speed_median.set('{0:.2f}'.format(result['Wind_Speed']['median']))
             
             self.frame_result.pack(side = TOP)
 
