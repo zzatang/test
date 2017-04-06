@@ -21,6 +21,15 @@
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="atApp.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="atDB.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="atWeb.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="lpoApp.py" />
     <Compile Include="lpoDB.py" />
     <Compile Include="lpoWeb.py" />
