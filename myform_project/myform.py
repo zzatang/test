@@ -66,6 +66,20 @@ class Feedback:
         scrollbar.pack(side = 'right', fill='y')
         self.listbox_result.pack()
 
+        self.treeview_result = ttk.Treeview(self.frame_listbox)
+        self.treeview_result['columns'] = ('Name', 'Email')
+        self.treeview_result.heading('#0', text = 'id')
+        self.treeview_result.heading('Name', text = 'Name')
+        self.treeview_result.heading('Email', text = 'Email')
+        self.treeview_result.column('#0', width = 30)
+        self.treeview_result.column('Name', width = 150)
+        self.treeview_result.column('Email', width = 150)
+        self.treeview_result.pack()
+
+
+
+           
+
         ttk.Label(self.frame_result, text = 'Comments').grid(row = 2, column = 0,padx = 5, sticky = 'sw')
 
         self.frame_comments = ttk.Frame(self.frame_result)
