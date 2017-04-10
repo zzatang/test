@@ -57,14 +57,23 @@ class FindSubset:
 
         try:
             self.path = self.path_entry.get()
-            images = []
+            images = list(entry for entry in os.listdir(self.path) if entry.endswith('.jpg'))
+        except:
+            messagebox.showerror(title = 'Invalid Directory', message = 'Invalid Search Directory:\n' + self.path)
+            return
 
+        if len(images) < 2:
+            messagebox.showerror(title = 'Not Enough Images', message = 'Need at least 2 images to analyse.')
+            return
 
-
-
-
-
-
+        self.queue = Queue()
+        for i in images:
+            for j in images:
+                if i != j:
+                    self.queue.put((i, j))
+         
+        self.result_table.grid_forget()
+                   
 
 def main():
     root = Tk()
