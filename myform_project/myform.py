@@ -61,11 +61,7 @@ class Feedback:
         self.frame_listbox = ttk.Frame(self.frame_result)
         self.frame_listbox.grid(row = 1, column =0)
         scrollbar = Scrollbar(self.frame_listbox, orient = 'vertical')
-        self.listbox_result = Listbox(self.frame_listbox, width = 50, height = 10, yscrollcommand=scrollbar.set)
-        scrollbar.config(command = self.listbox_result.yview)
-        scrollbar.pack(side = 'right', fill='y')
-        self.listbox_result.pack()
-
+        
         self.treeview_result = ttk.Treeview(self.frame_listbox)
         self.treeview_result['columns'] = ('Name', 'Email')
         self.treeview_result.heading('#0', text = 'id')
@@ -74,12 +70,10 @@ class Feedback:
         self.treeview_result.column('#0', width = 30)
         self.treeview_result.column('Name', width = 150)
         self.treeview_result.column('Email', width = 150)
+        scrollbar.config(command = self.treeview_result.yview)
+        scrollbar.pack(side = 'right', fill='y')
         self.treeview_result.pack()
-
-
-
-           
-
+             
         ttk.Label(self.frame_result, text = 'Comments').grid(row = 2, column = 0,padx = 5, sticky = 'sw')
 
         self.frame_comments = ttk.Frame(self.frame_result)
@@ -95,17 +89,12 @@ class Feedback:
         self.button_delete_selected = ttk.Button(self.frame_right, text = 'Delete Selected', command = self.delete_selected, state = DISABLED)
         self.button_delete_selected.grid(row = 2, column = 2, padx = 5, pady = 5)
 
-
         self.__fn = ':memory:'
         self.__t = 'test'
-        
-
+ 
         self.db = atDB(filename = self.__fn, table = self.__t)
         self.db.sql_do('DROP TABLE IF EXISTS {}'.format(self.__t))
         self.db.sql_do('CREATE TABLE {} (id INTEGER PRIMARY KEY, name TEXT, email TEXT, comments TEXT)'.format(self.__t))
-
-        
-
 
     def submit(self):
         record = dict( name = self.entry_name.get(), email = self.entry_email.get(), comments = self.text_comments.get(1.0, 'end'))
