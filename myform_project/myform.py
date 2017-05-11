@@ -110,7 +110,7 @@ class Feedback:
             messagebox.showerror(title = 'Explore NSW Feedback', message = 'All fields need to be filled in')
 
     def refresh_list(self):
-        for i in self.treeview_result.get_children(): self.treeview_result.delete(i)
+        self.treeview_result.delete(*self.treeview_result.get_children())
         self.text_show_comments.config(state = 'normal')
         self.text_show_comments.delete(1.0, 'end')
         self.text_show_comments.config(state = 'disabled')
