@@ -110,32 +110,29 @@ class Feedback:
             messagebox.showerror(title = 'Explore NSW Feedback', message = 'All fields need to be filled in')
 
     def refresh_list(self):
-        self.listbox_result.delete(0, 'end')
+        for i in self.treeview_result.get_children(): self.treeview_result.delete(i)
         self.text_show_comments.config(state = 'normal')
         self.text_show_comments.delete(1.0, 'end')
         self.text_show_comments.config(state = 'disabled')
         for r in self.db.getrecs():
-            record = '--'.join([str(r['id']),r['name'], r['email']])
-            self.listbox_result.insert('end', record)
-        self.listbox_result.bind('<<ListboxSelect>>', self.on_select)
+             self.treeview_result.insert('', 'end', text = str(r['id']), values = (r['name'], r['email']))
+        self.treeview_result.bind('<<TreeviewSelect>>', self.on_select)
         self.intRecord = self.db.countrecs()
         self.label_record['text'] = ''.join([self.strRecord, str(self.intRecord)])
         self.button_delete_selected.config(state = 'disabled')
 
         
     def on_select(self, evt):
-        widget = evt.widget
-        if widget.size() > 0:
-            index = int(widget.curselection()[0])
-            value = widget.get(index)
-            self.__row_id = int(value.split('--')[0])
-            sql = 'SELECT comments FROM {} WHERE id = ?'.format(self.__t)
-            comment = self.db.sql_query_value(sql, [self.__row_id])
-            self.text_show_comments.config(state = 'normal')
-            self.text_show_comments.delete(1.0, 'end')
-            self.text_show_comments.insert(INSERT, comment)
-            self.text_show_comments.config(state = 'disabled')
-            self.button_delete_selected.config(state = 'normal')
+        curItem = self.treeview_result.focus()
+        selectedItem = self.treeview_result.item(curItem)
+        self.__row_id = int(selectedItem['text'])
+        sql = 'SELECT comments FROM {} WHERE id = ?'.format(self.__t)
+        comment = self.db.sql_query_value(sql, [self.__row_id])
+        self.text_show_comments.config(state = 'normal')
+        self.text_show_comments.delete(1.0, 'end')
+        self.text_show_comments.insert(INSERT, comment)
+        self.text_show_comments.config(state = 'disabled')
+        self.button_delete_selected.config(state = 'normal')
         
         
 
