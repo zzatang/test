@@ -73,7 +73,21 @@ class FindSubset:
                     self.queue.put((i, j))
          
         self.result_table.grid_forget()
-                   
+        self.result_table.delete(*self.result_table.get_children())
+        
+        self.status_var.set('Beginning...')
+        self.status_label.pack(side = BOTTOM, fill = BOTH, expand = True)
+        self.progressbar.config(value = 0.0, maximum = self.queue.qsize())
+        self.progressbar.pack(side = BOTTOM, fill = BOTH, expand = True)
+        self.browse_button.state(['disabled'])
+        self.search_button.state(['disabled'])
+
+    def process_queue(self):
+        pair = self.queue.get()
+        orig_img = Image.open(os.path.join(self.path, pair[0]))
+        temp_img = Image.open(os.path.join(self.path, pair[1]))
+            
+       
 
 def main():
     root = Tk()
