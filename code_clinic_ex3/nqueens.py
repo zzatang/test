@@ -12,16 +12,18 @@ __version__ = '0.3.4'
 class NQueens():
     
     def __init__(self, master):        
-        self.n = 8 # number of queens   
+        self.n = 4 # number of queens   
         self.queens = [0 for i in range(self.n)] # queens in current solution
         self.index = 0
         self.solutions = None
+        self.counter = 0
                
         self.master = master
         self.master.title('NQueens')
         self.master.configure(background = '#e1d8b9')
         self.master.minsize(400, 470)
-        self.master.resizable(True, True)                
+        self.master.resizable(True, True)
+        #self.master.update()             
         self.master.bind('<Configure>', lambda e: self.draw_board())
         
         self.style = ttk.Style()
@@ -49,6 +51,7 @@ class NQueens():
         self.time_var = StringVar()
         self.solution_var.set('--')
         self.time_var.set('--')
+        self.counter_var = StringVar()
         ttk.Label(self.controls_frame, text = 'Solution:',
                   font = 'Verdana 10 bold').grid(row = 0, column = 3, sticky= (E))
         ttk.Label(self.controls_frame, textvariable = self.solution_var,
@@ -57,6 +60,10 @@ class NQueens():
                   font = 'Verdana 10 bold').grid(row = 1, column = 3, sticky = (E))
         ttk.Label(self.controls_frame, textvariable = self.time_var,
                   font = 'Verdana 10').grid(row = 1, column = 4, sticky = (W))
+        ttk.Label(self.controls_frame, text = 'Counter:',
+                  font = 'Verdana 10 bold').grid(row = 1, column = 1, sticky = (E))
+        ttk.Label(self.controls_frame, textvariable = self.counter_var,
+                  font = 'Verdana 10').grid(row = 1, column = 2, sticky = (W))
         
         self.solution_callback() # begin by showing first solution to 8 queens
         
@@ -75,6 +82,9 @@ class NQueens():
             # draw a queen  
             self.board_canvas.create_text(i*cellsize+cellsize//2, self.queens[i]*cellsize+cellsize//2,
                                           text = u'\u265B', font = ('Arial', cellsize//2), fill = 'orange')
+
+        self.counter += 1
+        self.counter_var.set('{}'.format(self.counter))
     
     def solution_callback(self):        
         try:
@@ -111,6 +121,7 @@ class NQueens():
                 self.time_var.set('{0:.3f}s'.format(elapsed_time))
         else:
             self.index += 1
+            self.counter = 0
             
         self.queens = self.solutions[self.index % len(self.solutions)]
         self.solution_var.set('{}/{}'.format(self.index % len(self.solutions) + 1, len(self.solutions))) 
