@@ -23,6 +23,9 @@ class atTheremin():
         B = int(255 * event.x/self.canvas.winfo_width() * (event.y + 1) / self.canvas.winfo_height())
         self.canvas.config( background = '#{:02x}50{:02x}'.format(R, B))
 
+        if self.prev:
+            self.canvas.create_line(self.prev.x, self.prev.y, event.x, event.y, width = 10, fill = '#{:02x}88{:02x}'.format(R, B))
+            self.prev = event
 
     def mouse_down(self, event):
         pass
