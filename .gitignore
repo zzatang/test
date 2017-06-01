@@ -2,3 +2,4 @@
 UpgradeLog.htm
 *.pyc
 *.db
+.vs/VSWorkspaceState.json
