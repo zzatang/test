@@ -31,10 +31,14 @@ class atCaptionsort():
         ttk.Button(self.main_frame, text = 'Sort Images', command = self.sort_callback).grid(row = 5, column = 0, columnspan = 2)
 
     def browse_src_callback(self):
-        pass
+        path = filedialog.askdirectory(initialdir = self.src_entry.get())
+        self.src_entry.delete(0, END)
+        self.src_entry.insert(0, path)
 
     def browse_dest_callback(self):
-        pass
+        path = filedialog.askdirectory(initialdir = self.dest_entry.get())
+        self.dest_entry.delete(0, END)
+        self.dest_entry.insert(0, path)
 
     def sort_callback(self):
         pass
