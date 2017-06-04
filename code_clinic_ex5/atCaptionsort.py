@@ -47,11 +47,58 @@ class atCaptionsort():
                 if file.endswith('jpg', 'png'):
                     image_paths.append(os.path.join(dirpath, file))
 
-
-
-
-
-
+        sort_dirs = {}
+        for key in range(ord('A'), ord('Z') + 1):
+            sort_dirs[chr(key)] = []
+        
+        for path in image_paths:
+            if path.endswith('jpg'):
+                tag = '-Caption-Abstract'
+            elif path.endswith('png'):
+                tag = '-Description'
+            try:
+                output = subprocess.check_output(['.\\exiftool.exe', tag, path])
+                caption = output.decode(encoding = 'utf_8')[34:].rstrip()
+            except:
+                print('Error getting Exif data for ' + path)
+            else:
+                print('Caption found for {} - {}'.format(path, caption))
+                if caption:
+                   try:
+                       sort_dirs[caption[0].upper()].append(path)
+                   except:
+                       print('Error sorting {}. Caption begin with {}.'.format(path, caption[0]))
+        
+        sort_count = 0
+        for key in sort_dirs.keys():
+            if sort_dirs[key]:
+                key_path = os.path.join(self.dest_entry.get(), key)
+                if not os.path.exists(key_path):
+                    try:
+                        os.makedirs(key_path)
+                    except os.error as e:
+                        print(str(e))
+                for file in sort_dirs[key]:
+                    if self.copy_var.get():
+                        try:
+                            shutil.copy(file, os.path.join(key_path, file.split('\\')[-1]))
+                        except IOError as e:
+                            print(str(e))
+                        else:
+                            print('Copied {} to {}'.format(file, key_path))
+                            sort_count += 1
+                    else:
+                        try:
+                            shutil.move(file, os.path.join(key_path, file.split('\\')[-1]))
+                        except IOError as e:
+                            print(str(e))
+                        else:
+                            print('Moved {} to {}'.format(file, key_path))
+                            sort_count += 1
+        
+        messagebox.showinfo(title = 'Sorting Completed', message = 'Done!\nSorted {} files'.format(sort_count))
+      
+                             
 def main():
     root = Tk()
     gui = atCaptionsort(root)
