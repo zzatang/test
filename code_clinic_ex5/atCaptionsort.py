@@ -44,7 +44,7 @@ class atCaptionsort():
         image_paths = []
         for dirpath, dirnames, filenames in os.walk(self.src_entry.get()):
             for file in filenames:
-                if file.endswith('jpg', 'png'):
+                if file.endswith(('jpg', 'png')):
                     image_paths.append(os.path.join(dirpath, file))
 
         sort_dirs = {}
