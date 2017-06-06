@@ -43,16 +43,16 @@ class atCaptionsort():
     def sort_callback(self):
         image_paths = []
         for dirpath, dirnames, filenames in os.walk(self.src_entry.get()):
-            for file in filenames:
-                if file.endswith(('jpg', 'png')):
-                    image_paths.append(os.path.join(dirpath, file))
+           for file in filenames:
+               if file.endswith(('.jpg', 'png')):
+                   image_paths.append(os.path.join(dirpath, file))
 
         sort_dirs = {}
         for key in range(ord('A'), ord('Z') + 1):
             sort_dirs[chr(key)] = []
-        
+
         for path in image_paths:
-            if path.endswith('jpg'):
+            if path.endswith('.jpg'):
                 tag = '-Caption-Abstract'
             elif path.endswith('png'):
                 tag = '-Description'
@@ -60,16 +60,16 @@ class atCaptionsort():
                 output = subprocess.check_output(['.\\exiftool.exe', tag, path])
                 caption = output.decode(encoding = 'utf_8')[34:].rstrip()
             except:
-                print('Error getting Exif data for ' + path)
+                print('Error getting exif data for {}'.format(path))
             else:
                 print('Caption found for {} - {}'.format(path, caption))
                 if caption:
-                   try:
-                       sort_dirs[caption[0].upper()].append(path)
-                   except:
-                       print('Error sorting {}. Caption begin with {}.'.format(path, caption[0]))
+                    try:
+                        sort_dirs[caption[0].upper()].append(path)
+                    except:
+                        print('Error sorting {} - Caption starts with {}'.format(path, caption[0]))
         
-        sort_count = 0
+        sorted_count = 0                
         for key in sort_dirs.keys():
             if sort_dirs[key]:
                 key_path = os.path.join(self.dest_entry.get(), key)
@@ -78,6 +78,7 @@ class atCaptionsort():
                         os.makedirs(key_path)
                     except os.error as e:
                         print(str(e))
+                
                 for file in sort_dirs[key]:
                     if self.copy_var.get():
                         try:
@@ -86,7 +87,7 @@ class atCaptionsort():
                             print(str(e))
                         else:
                             print('Copied {} to {}'.format(file, key_path))
-                            sort_count += 1
+                            sorted_count += 1
                     else:
                         try:
                             shutil.move(file, os.path.join(key_path, file.split('\\')[-1]))
@@ -94,9 +95,10 @@ class atCaptionsort():
                             print(str(e))
                         else:
                             print('Moved {} to {}'.format(file, key_path))
-                            sort_count += 1
-        
-        messagebox.showinfo(title = 'Sorting Completed', message = 'Done!\nSorted {} files'.format(sort_count))
+                            sorted_count += 1
+
+        messagebox.showinfo(title = 'Sorting is completed', message = 'Done!\n{} files sorted'.format(sorted_count))
+       
       
                              
 def main():
