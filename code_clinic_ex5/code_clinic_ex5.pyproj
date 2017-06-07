@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2179b10e-2c80-4500-9c4c-4a6e86fe294c}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>captionsort.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId>Global|ContinuumAnalytics|Anaconda36-64</InterpreterId>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="atCaptionsort.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="captionsort.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="images\466026777.png" />
+    <Content Include="images\477987145.jpg" />
+    <Content Include="images\beach.jpg" />
+    <Content Include="images\caribbean.jpg" />
+    <Content Include="images\daltonism_color.jpg" />
+    <Content Include="images\liberty.jpg" />
+    <Content Include="images\macaw1.jpg" />
+    <Content Include="images\macaw2.jpg" />
+    <Content Include="images\wedding.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="images" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="Global|ContinuumAnalytics|Anaconda36-64" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+</Project>
