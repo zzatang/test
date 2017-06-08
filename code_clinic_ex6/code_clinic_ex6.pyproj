@@ -19,6 +19,9 @@
     <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="atcsv_tables.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="csv_tables.py" />
   </ItemGroup>
   <ItemGroup>
