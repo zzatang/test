@@ -30,6 +30,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="inventory\admin.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="inventory\forms.py" />
     <Compile Include="inventory\migrations\__init__.py" />
     <Compile Include="inventory\models.py" />
