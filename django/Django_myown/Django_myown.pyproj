@@ -46,6 +46,8 @@
     <Compile Include="Django_myown\wsgi.py" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Django_myown\templates\" />
+    <Folder Include="Django_myown\templates\inventory\" />
     <Folder Include="inventory\" />
     <Folder Include="Django_myown\" />
     <Folder Include="inventory\" />
@@ -61,6 +63,8 @@
     <Folder Include="inventory\__pycache__\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Django_myown\templates\inventory\index.html" />
+    <Content Include="Django_myown\templates\inventory\item_detail.html" />
     <Content Include="inventory\migrations\__pycache__\__init__.cpython-36.pyc" />
     <Content Include="inventory\static\app\content\bootstrap.css" />
     <Content Include="inventory\static\app\content\bootstrap.min.css" />
