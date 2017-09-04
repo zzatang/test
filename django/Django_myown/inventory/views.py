@@ -6,6 +6,15 @@ from django.shortcuts import render
 from django.http import HttpRequest
 from django.template import RequestContext
 from datetime import datetime
+from django.http import Http404
+from inventory.models import Item
+
+
+def index(request):
+    items = Item.objects.exclude(amount=0)
+
+def item_detail(request, id):
+    return HttpResponse('<p>In Item_detail view with id {0}</p>'.format(id))
 
 def home(request):
     """Renders the home page."""

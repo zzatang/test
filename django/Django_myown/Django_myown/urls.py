@@ -9,6 +9,8 @@ import django.contrib.auth.views
 import inventory.forms
 import inventory.views
 
+from inventory import views
+
 # Uncomment the next lines to enable the admin:
 from django.conf.urls import include
 from django.contrib import admin
@@ -16,7 +18,9 @@ admin.autodiscover()
 
 urlpatterns = [
     # Examples:
-    url(r'^$', inventory.views.home, name='home'),
+    # url(r'^$', inventory.views.home, name='home'),
+    url(r'^$', views.index, name = 'index' ),
+    url(r'^item/(?P<id>\d+)/', views.item_detail, name = 'item_detail'),
     url(r'^contact$', inventory.views.contact, name='contact'),
     url(r'^about', inventory.views.about, name='about'),
     url(r'^login/$',
