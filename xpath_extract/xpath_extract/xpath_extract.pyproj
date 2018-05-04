@@ -21,6 +21,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="log_parse.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="test_count.py">
       <SubType>Code</SubType>
     </Compile>
