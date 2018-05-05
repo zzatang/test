@@ -13,6 +13,7 @@ def CreateRerunFile(inputLogFile, fileCounter):
     oFileObject = open(outputFileName, "w", newline='')
     oWriter = csv.writer(oFileObject)
     oWriter.writerow(["category","spage","lpage","domain"])
+    counter = 0
 
     for idx, val in enumerate(lines):
         if (val.strip() == "No products found on this page.") and (idx >= 3):
@@ -24,13 +25,14 @@ def CreateRerunFile(inputLogFile, fileCounter):
             dotComPos = fullMessage.find('.com')
             domainString = fullMessage[wwwPos+4:dotComPos+4]
             rowToWrite = [urlString,"1","1",domainString]
-            oWriter.writerow(rowToWrite)
+            if urlString.find("http") != -1:
+                oWriter.writerow(rowToWrite)
+                counter += 1
 
     fileObject.close()
     oFileObject.close()
     os.remove(inputLogFile)
-    if len(rowToWrite) == 0:
-        os.remove(outputFileName)
+    if counter == 0: os.remove(outputFileName)
 
 if __name__ == "__main__":
     
