@@ -21,6 +21,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="extract_urls.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="log_parse.py">
       <SubType>Code</SubType>
     </Compile>
