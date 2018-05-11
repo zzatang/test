@@ -21,6 +21,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="crawler.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="extract_urls.py">
       <SubType>Code</SubType>
     </Compile>
